@@ -1,0 +1,144 @@
+<template name="searchRegistration">      
+  <div class="row">
+    <h1 class="text-center">在线核名</h1>
+    <p class="text-center">公司名称预检系统</p>
+
+    <ul class="reserve-panel">
+      <li class="reserve-panel-item">
+        <div class="form-group clearfix">
+          <div class="col-xs-2">
+            <span class="glyphicon glyphicon-hand-right"></span>
+          </div>
+          <div class="col-xs-10">
+            <input type="text" name="keywords" id="text" placeholder="请输入企业名称" onkeydown="if(event.keyCode==13) return false">
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <input type="button" class="btn btn-kyl btn-block mt30 " value="马上查询"/> 
+  </div>
+
+  <div class="row help-block">
+    <hr>
+    <p class="text-left">注：本系统只提供公司字号查询参考，查名结果以当地工商信息为准。</p>
+  </div>
+
+  <div class="row">
+    <div class="pull-left">
+      <p>累计查询次数：{{times}}</p>
+    </div>
+  </div>
+</template>
+
+
+<template name="searchRegistrationResults">
+<div class="reserve">
+  <header class="nav-bar">
+    <div class="pull-left">
+      <a href="/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+    <h1> 在线核名 </h1>
+  </header>
+
+  <section class="container">
+    <div role="tabpanel" class="row"> 
+      <div class="reserve-tab">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#home" class="img-circle" aria-controls="home" role="tab" data-toggle="tab">
+              <span class="glyphicon glyphicon-search"></span>
+            </a>
+            <span class="caret"></span></li>
+        </ul>
+      </div>
+  
+      <div class="search-end col-xs-12">
+        {{#unless readyflag}}
+          <h2>
+            正在查询名称为 <strong>{{keywords}}</strong> 的公司<br>
+          </h2>
+          {{> spinner}}
+        {{/unless}}
+
+        {{#if readyflag}}
+          {{#if registrationLength}}
+            <h2>名称为 <strong class="keywords">{{keywords}}</strong> 的公司已经存在{{numberOfResults}} 条 显示 
+              <span class="registrationsLength">{{registrationLength}}</span> 条 <br>
+            </h2>
+
+            {{#each registrations}}
+              {{> registration}}
+            {{/each}}
+        
+            <p hidden class="allpageNo">{{allpageNo}}</p>
+            <p hidden class="currentpage">1</p>
+            <p hidden class="hasnext">true</p>
+
+            {{#if hasnextpage}}
+              <div class="col-xs-12">
+                <input type="button" id="btn-more" class=" btn  btn-kyl btn-block btn-more mb20" value="加载更多"/>  
+              </div>
+            {{/if}}
+          {{else}}
+            <h2>名称为 <strong>{{keywords}}</strong> 的公司不存在<br></h2>
+          {{/if}}        
+        {{/if}}        
+
+      </div>
+    </div>
+  </section>
+</div>
+  {{> ReigstrationModalL}}
+</template>
+
+<template name="registration">
+  <div class="search-end col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{companyName}}
+      </div>
+      <div class="panel-body">
+        <p>住所：{{companyAddress}}</p>
+        <p>企业状态：{{companyStatus}}</p>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-default detail"  data-companyid="{{companyId}}">详细信息</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="ReigstrationModalL">
+  <div class="modal fade" id="RegistrationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">详细信息</h4>
+        </div>
+
+        <div class="modal-body">
+          <table class="table table-bordered table-striped table-hover">
+            <tbody>
+              {{#each credit.basicDetail}}
+              <tr>
+                <td class="key"> {{key}}</td>
+                <td class="value">{{value}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+

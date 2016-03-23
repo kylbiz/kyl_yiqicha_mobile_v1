@@ -1,0 +1,56 @@
+<template name="kylCompanyName">
+  <div class="reserve">
+    <header class="nav-bar">
+      <h1> 企信自助查询系统 </h1>
+    </header>
+
+    <section class="container">
+      <div role="tabpanel" class="row">         
+        <div class="reserve-tab">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#home" class="img-circle" aria-controls="home" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-search"></span>
+              </a>
+              <span class="caret"></span>
+            </li>
+
+            <li role="presentation">
+              <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-list-alt"></span>
+              </a>
+              <span class="caret"></span>
+            </li>
+
+            <li role="presentation">
+              <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-print"></span>
+              </a>
+              <span class="caret"></span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="tab-content col-xs-10 col-xs-offset-1 reserve-tab-con">
+        <div role="tabpanel" class="tab-pane active fade in" id="home">
+          <form method="post"  id="searchRegistrationIndex">        
+            {{> searchRegistration}}
+          </form>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade " id="profile">
+          <form method="post"  id="searchCompanyStatus">        
+            {{> companyStatusQuery}}
+          </form>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade row" id="messages">
+          <form method="post"  id="searchRegistrationFeedback">        
+          {{> registrationFeedbackQuery}}
+          </form>
+        </div>
+      </div>
+      </div>
+    </section>
+  </div>
+</template>

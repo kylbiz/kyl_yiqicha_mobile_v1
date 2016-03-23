@@ -1,0 +1,99 @@
+<template name="companyStatusQuery">       
+  <div class="row">
+    <h1 class="text-center">名称核准</h1>
+    <p class="text-center">企业名称核准状态</p>
+
+    <ul class="reserve-panel">
+      <li class="reserve-panel-item">
+        <div class="form-group clearfix">
+          <div class="col-xs-2">
+            <span class="glyphicon glyphicon-hand-right"></span>
+          </div>
+          <div class="col-xs-10">
+            <input type="text" name="keywords" id="text" placeholder="请输入企业名称" onkeydown="if(event.keyCode==13) return false">
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+  <div class="row">
+    <input type="button" class="btn btn-kyl btn-block mt30" value="马上查询"/>    
+  </div>
+
+  <div class="row help-block">
+    <hr>
+    <p class="text-left">注：本系统只提供名称核准状态参考，确切信息以当地工商信息为准。</p>
+  </div>
+
+</template>
+
+
+<template name="companyNameStatusResult">
+  <div class="reserve">
+    <header class="nav-bar">
+      <div class="pull-left">
+        <a href="/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      </div>
+      <h1> 名称核准 </h1>
+    </header>
+    <section class="container">
+      <div role="tabpanel" class="row"> 
+        <div class="reserve-tab">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#home" class="img-circle" aria-controls="home" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-search"></span>
+              </a>
+              <span class="caret"></span>
+            </li>
+          </ul>
+        </div>
+    
+        <div class="search-end col-xs-12">
+          {{#if zeroresult}} 
+            <h2>查新名称为 <strong>{{keywords}}</strong> 的结果不存在，请确认具体名称后查询</h2>
+          {{else}}
+            {{# if oneresult}}
+              {{#each companynameInfo}}
+                {{> companyStatusDetail}}
+              {{/each}}
+            {{else}}    
+              <h2>查新名称为 <strong>{{keywords}}</strong> 的结果存在多条，请确认具体名称后查询</h2> 
+            {{/if}}       
+          {{/if}}       
+        </div>      
+      </div>
+    </section>
+  </div>
+</template>
+
+
+<template name="companyStatusDetail">
+  <div class="search-end col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{companyName}}</div>
+      <div class="panel-body">
+        <p>受理日期:{{acceptedDate}} </p>
+        <p>受理机关：{{acceptOrgan}}</p>
+        <p>申请状态：{{applayStatus}}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
